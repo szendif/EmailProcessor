@@ -2,7 +2,8 @@ function parseOrder(body, email) {
   logDebug("EMAIL BODY (első 500)", body.substring(0, 500));
 
   const childMatch = body.match(/Gyermek neve:\s*(.+)/i);
-  const oviMatch = body.match(/Óvoda.*csoport.*:\s*(.+)/i);
+  const oviMatch = body.match(/Óvoda.*:\s*(.+)/i);
+  const csoportMatch = body.match(/Csoport.*:\s*(.+)/i);
   const fizetesMatch = body.match(/Fizetés módja:\s*(.+)/i);
   const email_ = email;
 
@@ -13,18 +14,19 @@ function parseOrder(body, email) {
 
   const child = childMatch[1].trim();
   const oviCsoport = oviMatch[1].trim();
+  const csoport = csoportMatch[1].trim();
   const fizetes = fizetesMatch[1].trim();
   
   logDebug("Gyerek", child);
-  logDebug("Ovi+Csoport", oviCsoport);
+  logDebug("Ovi", oviCsoport);
+  logDebug("Csoport", csoport);
   logDebug("Fizetes", fizetes);
 
-  let ovi = oviCsoport;
-  let csoport = "Ismeretlen";
+  //let ovi = oviCsoport;
 
-  if (oviCsoport.includes(",")) {
-    [ovi, csoport] = oviCsoport.split(",").map(s => s.trim());
-  }
+  //if (oviCsoport.includes(",")) {
+  //  [ovi, csoport] = oviCsoport.split(",").map(s => s.trim());
+  //}
 
   const productRegex =
     /(SZI-\d+)\s*-\s*([^\n]+)\n.*?\n\s*(\d+)\s+([\d\s]+)\s*Ft/gi;
@@ -53,5 +55,5 @@ function parseOrder(body, email) {
     return null;
   }
 
-  return { ovi, csoport, items, fizetes, email };
+  return { oviCsoport, csoport, items, fizetes, email };
 }
