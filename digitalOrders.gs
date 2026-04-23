@@ -30,26 +30,22 @@ function processDigitalOrders() {
       return;
     }
 
-    const digitalItems = orderData.items.filter(i => i.kep.startsWith("PE-"));
+    const fileName = orderData.oviNormalized + " - Digitális";
+    if (!fileCache[fileName]) fileCache[fileName] = {};
+    if (!fileCache[fileName][orderData.csoport]) fileCache[fileName][orderData.csoport] = [];
 
-    if (digitalItems.length > 0) {
-      const fileName = orderData.oviNormalized + " - Digitális";
-      if (!fileCache[fileName]) fileCache[fileName] = {};
-      if (!fileCache[fileName][orderData.csoport]) fileCache[fileName][orderData.csoport] = [];
+    const rows = fileCache[fileName][orderData.csoport];
+    let orderTotal = 0;
 
-      const rows = fileCache[fileName][orderData.csoport];
-      let orderTotal = 0;
-
-      // col layout (8 col): 0=gyerek, 1=kep, 2=db, 3=ar, 4=összesen, 5="", 6=fizetes, 7=email
-      rows.push([orderData.child, "", "", "", "", "", "", ""]);
-      digitalItems.forEach(i => {
-        rows.push(["", i.kep, i.db, i.ar, "", "", "", ""]);
-        orderTotal += i.ar;
-      });
-      // col 4 = orderTotal → updateSummarySheet row[4] ezt olvassa
-      rows.push(["RENDELÉS ÖSSZESEN", "", "", "", orderTotal, "", orderData.fizetes, orderData.email]);
-      rows.push([" ", "", "", "", "", "", "", ""]);
-    }
+    // col layout (8 col): 0=gyerek, 1=kep, 2=db, 3=ar, 4=összesen, 5="", 6=fizetes, 7=email
+    rows.push([orderData.child, "", "", "", "", "", "", ""]);
+    orderData.items.forEach(i => {
+      rows.push(["", i.kep, i.db, i.ar, "", "", "", ""]);
+      orderTotal += i.ar;
+    });
+    // col 4 = orderTotal → updateSummarySheet row[4] ezt olvassa
+    rows.push(["RENDELÉS ÖSSZESEN", "", "", "", orderTotal, "", orderData.fizetes, orderData.email]);
+    rows.push([" ", "", "", "", "", "", "", ""]);
 
     processedThreads.push(thread);
   });
