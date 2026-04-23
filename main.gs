@@ -1,20 +1,20 @@
 function processNinaFotozOrders() {
-  const LABEL_NAME = "ninafotoz-feldolgozva";
+  const LABEL_NAME = "ninafotoz-feldolgozva-AN";
   const SUBJECT_QUERY = 'subject:"[NinaFotoz]: Új rendelés "';
 
-//const threads = GmailApp.search(
-  //`${SUBJECT_QUERY} -label:${LABEL_NAME}`
-//);
+  const threads = GmailApp.search(
+    `${SUBJECT_QUERY} -label:${LABEL_NAME}`
+  );
 
-  const SUBJECT = "[NinaFotoz]: Új rendelés #48276";
+  const SUBJECT = "[NinaFotoz]: Új rendelés #";
 
   const label = GmailApp.getUserLabelByName(LABEL_NAME) 
     || GmailApp.createLabel(LABEL_NAME);
 
-  const threads = GmailApp.search(
+/*  const threads = GmailApp.search(
     `subject:"${SUBJECT}" -label:${LABEL_NAME}`
   );
-
+*/
   threads.forEach(thread => {
     const message = thread.getMessages()[0];
     const html = message.getBody();
@@ -25,7 +25,10 @@ function processNinaFotozOrders() {
 
     // parse
     const orderData = parseOrder(body, orderEmail);
-
+    if (orderData == null){
+          logDebug("❌ NINCS TERMÉK", message.getSubject() );
+          //continue;
+    }
     //save to sheetbe
     const file = saveToSheet(orderData);
 
