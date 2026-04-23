@@ -2,7 +2,7 @@ function saveToSheet(data) {
   //let file = getOrCreateFile(data.ovi);
   //let sheet = file.getSheetByName(data.csoport)
     //|| file.insertSheet(data.csoport);
-  let file = getOrCreateFile(data.ovi);
+  let file = getOrCreateFile(data.oviNormalized);
 
   let sheet = file.getSheetByName(data.csoport);
 
@@ -30,7 +30,7 @@ function saveToSheet(data) {
 
   const totals = {};
   // gyerek neve
-  let childName = data.items[0].gyerek;
+  let childName = data.child; //items[0].gyerek;
   
   data.items.forEach(i => {
     const key = i.meret;
@@ -57,7 +57,7 @@ function saveToSheet(data) {
   let sizePrice = 0;
 
   grouped[size].forEach(i => {
-    sheet.appendRow(["", i.kep, size, i.db, "", ""]);
+    sheet.appendRow(["", i.kep, size, i.db, i.ar, ""]);
     sizeTotal += i.db;
     sizePrice += i.ar;
     orderTotal += i.ar;
