@@ -1,15 +1,14 @@
 const SIZE_ORDER = [
-'Fényképes akrill kulcstartó 2db képpel',
-'10x5',
+'Fényképes akril kulcstartó',
 'Hűtőmágnes',
 'Fényképes bögre',
-'10x15',
-'13x18',
-'20x30',
+'10x15ös papírkép',
+'13x18as papírkép',
+'20x30as papírkép',
 'Vászonkép-20x30',
 'Vászonkép-30x45',
 'Vászonkép-40x60',
 'Vászonkép-50x75',
 'Vászonkép-60x90',
-'Digitálisan'
+'Digitáli kép'
 ]
