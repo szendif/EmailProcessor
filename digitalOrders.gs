@@ -30,7 +30,7 @@ function processDigitalOrders() {
       return;
     }
 
-    const digitalItems = orderData.items.filter(i => i.kep.startsWith("PE-"));
+    const digitalItems = orderData.items.filter(i => i.meret === "Digitálisan");
 
     if (digitalItems.length > 0) {
       const fileName = orderData.oviNormalized + " - Digitális";

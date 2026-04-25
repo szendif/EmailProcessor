@@ -227,7 +227,7 @@ for (let i = 0; i < lines.length; i++) {
     const kep = normalizeCode(productMatch[1]);
     const meretRaw = productMatch[2].trim();
 
-    const meret = kep.startsWith("PE-")
+    const meret = meretRaw.toLowerCase().includes("digit")
       ? "Digitálisan"
       : SIZE_ORDER.find(size => meretRaw.includes(size)) || meretRaw;
 
