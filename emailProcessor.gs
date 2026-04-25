@@ -232,16 +232,16 @@ for (let i = 0; i < lines.length; i++) {
     const kep = normalizeCode(productMatch[1]);
     const meretRaw = productMatch[2].trim();
 
-    const meret = meretRaw.toLowerCase().includes("digit")
-      ? "Digitálisan"
-      : SIZE_ORDER.find(size => meretRaw.includes(size)) || meretRaw;
+    const meret = SIZE_ORDER.find(size => meretRaw.includes(size)) || meretRaw;
+    const isDigital = meretRaw.toLowerCase().includes("digit");
 
     items.push({
       gyerek: child,
       kep: kep,
       meret: meret,
       db: db,
-      ar: ar
+      ar: ar,
+      isDigital: isDigital
     });
 
     // ugrunk 2-t, mert már feldolgoztuk
