@@ -111,6 +111,9 @@ else if (/kertvárosi/i.test(ovi)) {
 else if (/kertvarosi/i.test(ovi)) {
   oviFinal = "Kertvárosi Óvoda";
 }
+else if (/Kertvárosi/i.test(ovi)) {
+  oviFinal = "Kertvárosi Óvoda";
+}
 else if (/Gyermekkert/i.test(ovi)) {
   oviFinal = "Gyermekkert Óvoda";
 }
@@ -123,7 +126,9 @@ else if (/Kinizsi/i.test(ovi)) {
 else if (/Pénz/i.test(ovi)) {
   oviFinal = "Pénzásási Óvoda";
 }
-
+else if (/Felső/i.test(ovi)) {
+  oviFinal = "Felsőgalla Óvoda";
+}
   const oviClean = ovi.toLowerCase().trim();
   const oviNormalized = OVI_MAP[oviClean] || oviFinal; // ha nincs a mapben, marad az eredeti
 
